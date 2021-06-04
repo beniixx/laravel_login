@@ -1,0 +1,22 @@
+//----------------------------------------------------------------
+//  Typography. Fonts and texts
+//----------------------------------------------------------------
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.info__required {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    font-weight: 600;
+}
+
+.text--semibold {
+    font-weight: 600;
+}
+
+.text--bold {
+    font-weight: 700;
+}

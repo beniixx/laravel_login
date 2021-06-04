@@ -1,7 +1,7 @@
 <template>
     <div class="input">
         <label 
-            class="input__label" 
+            :class="['input__label', { 'required': requiredInput }]" 
             :for="name"
         >
             {{label}}
@@ -31,6 +31,11 @@ export default {
             type: String,
             required: false,
             default: () => { return 'text' },
+        },
+        requiredInput: {
+            type: Boolean,
+            required: false,
+            default: () => { return false }
         }
     },
     data() {
@@ -65,27 +70,18 @@ export default {
 </script>
 
 <style scoped lang="scss">
-    .input {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-    }
-
-    .input__label {
-        margin-bottom: 10px;
-    }
-
-    .input__value {
-        border: 2px solid lightgray;
-
-        &:hover,
-        &:focus {
-            border: 2px solid black;
-            transition: border-color .6s ease;
-        }
-    }
-
     .valid {
         border: 2px solid green;
+    }
+
+    .required {
+        display: flex;
+        flex-direction: row;
+
+        &:after {
+            content: '*';
+            display: block;
+            margin-left: .2em;
+        }
     }
 </style>

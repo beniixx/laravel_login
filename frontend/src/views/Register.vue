@@ -1,16 +1,17 @@
 <template>
     <div class="register">
-        <div class="page-title">
-            <h1 class="page-title__text">Register</h1>
-        </div>
+        <PageTitle 
+            title="Register"
+        />
         <RegisterForm />
     </div>
 </template>
 <script>
-import RegisterForm from '../components/Register/Form';
+import RegisterForm from '@/components/Register/Form';
+import PageTitle from '@/components/Base/PageTitle';
 export default {
     name: 'Register',
-    components: { RegisterForm },
+    components: { RegisterForm, PageTitle },
 }
 </script>
 
