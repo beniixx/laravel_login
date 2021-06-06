@@ -1,9 +1,15 @@
 <template>
-    <div class="container login__container">
+    <div class="container register__container">
         <form>
             <FormInput
                 name="username"
-                label="Username or email:"
+                label="Username:"
+                inputType="text"
+                :requiredInput="true"
+            />
+            <FormInput
+                name="email"
+                label="Email:"
                 inputType="text"
                 :requiredInput="true"
             />
@@ -13,18 +19,24 @@
                 inputType="password"
                 :requiredInput="true"
             />
+            <FormInput
+                name="password2"
+                label="Password again:"
+                inputType="password"
+                :requiredInput="true"
+            />
             <div class="info info__required">
                 <span> {{ '* required input' }} </span>
             </div>
             <div class="info">
                 <p>
-                    {{ 'Don\'t have an account?' }}
-                    <router-link to="/register">Register here</router-link>
+                    {{ 'Already have an account?' }}
+                    <router-link to="/">Login here</router-link>
                 </p>
             </div>
             <SubmitForm
-                action="http://localhost/V1/login"
-                label="Login"
+                action="http://localhost/V1/register"
+                label="Register"
             />
         </form>
     </div>
@@ -33,7 +45,7 @@
 import FormInput from '@/components/Forms/Input';
 import SubmitForm from '@/components/Forms/Submit';
 export default {
-    name: 'LoginForm',
+    name: 'RegisterForm',
     components: { FormInput, SubmitForm },
 }
 </script>

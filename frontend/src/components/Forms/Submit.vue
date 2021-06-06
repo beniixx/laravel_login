@@ -1,6 +1,6 @@
 <template>
     <div class="input input--submit">
-        <button type="button">{{ label }}</button>
+        <button class="button" type="button">{{ label }}</button>
     </div>
 </template>
 <script>

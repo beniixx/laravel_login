@@ -1,0 +1,26 @@
+//----------------------------------------------------------------
+//  Forms and inputs
+//----------------------------------------------------------------
+
+.input {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.input__label {
+    margin-bottom: 10px;
+}
+
+.input__value {
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    padding: 10px;
+
+    &:hover,
+    &:focus {
+        border: 2px solid black;
+        transition: border-color .6s ease;
+    }
+}   
