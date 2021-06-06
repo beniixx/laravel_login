@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserActions;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('/user/create', [UserActions::class, 'create']);
+Route::post('/user/login', [UserActions::class, 'login']);
+Route::middleware('auth')->get('/user/user', [UserActions::class, 'getUserData']);
