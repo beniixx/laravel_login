@@ -3,7 +3,7 @@
         <form>
             <FormInput
                 name="username"
-                label="Username or email:"
+                label="Email:"
                 inputType="text"
                 :requiredInput="true"
             />
@@ -35,6 +35,11 @@ import SubmitForm from '@/components/Forms/Submit';
 export default {
     name: 'LoginForm',
     components: { FormInput, SubmitForm },
+    beforeMount() {
+        if (localStorage.getItem('jwt')) {
+            this.$router.push('dashboard');
+        }
+    }
 }
 </script>
 

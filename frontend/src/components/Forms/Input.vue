@@ -16,8 +16,10 @@
     </div>
 </template>
 <script>
+import ValidateForm from '@/mixins/validate-form';
 export default {
     name: 'FormTextInput',
+    mixins: [ValidateForm],
     props: {
         name: {
             type: String,
@@ -50,21 +52,11 @@ export default {
         checkInput(e) {
             const element = e.target;
             if (element.type === 'text') {
-
-                this.isValid = this.validEmail(element.value);
-
+                this.isValid = this.validateEmail(element.value);
             } else if (element.type === 'password') {
-                this.isValid = this.validPassword(element.value);
+                this.isValid = this.validatePassword(element.value);
             }
         },
-        validEmail: function (email) {
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            
-            return re.test(email);
-        },
-        validPassword(password) {
-            return password.length > 5;
-        }
     }
 }
 </script>

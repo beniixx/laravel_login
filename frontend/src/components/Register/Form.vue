@@ -2,8 +2,8 @@
     <div class="container register__container">
         <form>
             <FormInput
-                name="username"
-                label="Username:"
+                name="name"
+                label="Name:"
                 inputType="text"
                 :requiredInput="true"
             />
@@ -47,6 +47,11 @@ import SubmitForm from '@/components/Forms/Submit';
 export default {
     name: 'RegisterForm',
     components: { FormInput, SubmitForm },
+    beforeMount() {
+        if (localStorage.getItem('jwt')) {
+            this.$router.push('dashboard');
+        }
+    }
 }
 </script>
 
