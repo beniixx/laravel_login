@@ -12,18 +12,21 @@
                 label="Email:"
                 inputType="text"
                 :requiredInput="true"
+                validation="email"
             />
             <FormInput
                 name="password"
                 label="Password:"
                 inputType="password"
                 :requiredInput="true"
+                validation="password"
             />
             <FormInput
                 name="password2"
                 label="Password again:"
                 inputType="password"
                 :requiredInput="true"
+                validation="password2"
             />
             <div class="info info__required">
                 <span> {{ '* required input' }} </span>
@@ -35,7 +38,7 @@
                 </p>
             </div>
             <SubmitForm
-                action="http://localhost/V1/register"
+                action="register"
                 label="Register"
             />
         </form>

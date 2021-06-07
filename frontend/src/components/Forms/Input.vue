@@ -13,6 +13,11 @@
             :id="name"
             ref="input"
         />
+        <div 
+            :class="['input__info', {'show': !isValid}]"
+        >
+            <p>{{ getInfoText() }}</p>
+        </div>
     </div>
 </template>
 <script>
@@ -38,11 +43,18 @@ export default {
             type: Boolean,
             required: false,
             default: () => { return false }
+        },
+        validation: {
+            type: String,
+            required: false,
         }
     },
     data() {
         return {
-            isValid: false,
+            isValid: true,
+            emailInfoText: 'This is not a valid email address',
+            passwordInfoText: 'The password must be at least six (6) characters',
+            password2InfoText: 'The passwords do not match',
         };
     },
     mounted() {
@@ -51,10 +63,34 @@ export default {
     methods: {
         checkInput(e) {
             const element = e.target;
-            if (element.type === 'text') {
-                this.isValid = this.validateEmail(element.value);
-            } else if (element.type === 'password') {
-                this.isValid = this.validatePassword(element.value);
+            this.isValid = this.validateInput(element);
+        },
+        getInfoText() {
+            if (this.validation) {
+                switch(this.validation) {
+                    case 'email':
+                        return this.emailInfoText;
+                    case 'password':
+                        return this.passwordInfoText;
+                    case 'password2':
+                        return this.password2InfoText;
+                    default:
+                        return '';
+                }
+            }
+        },
+        validateInput(input) {
+            if (this.validation) {
+                switch(this.validation) {
+                    case 'email':
+                        return this.validateEmail(input.value);
+                    case 'password':
+                        return this.validatePassword(input.value);
+                    case 'password2':
+                        return this.validatePassword2(input);
+                    default:
+                        return true;
+                }
             }
         },
     }
@@ -74,6 +110,15 @@ export default {
             content: '*';
             display: block;
             margin-left: .2em;
+        }
+    }
+
+    .input__info {
+        display: none;
+        color: red;
+
+        &.show {
+            display: block;
         }
     }
 </style>

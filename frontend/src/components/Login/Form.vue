@@ -2,16 +2,18 @@
     <div class="container login__container">
         <form>
             <FormInput
-                name="username"
+                name="email"
                 label="Email:"
                 inputType="text"
                 :requiredInput="true"
+                validation="email"
             />
             <FormInput
                 name="password"
                 label="Password:"
                 inputType="password"
                 :requiredInput="true"
+                validation="password"
             />
             <div class="info info__required">
                 <span> {{ '* required input' }} </span>
@@ -23,7 +25,7 @@
                 </p>
             </div>
             <SubmitForm
-                action="http://localhost/V1/login"
+                action="login"
                 label="Login"
             />
         </form>

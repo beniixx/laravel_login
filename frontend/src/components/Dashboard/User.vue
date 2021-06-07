@@ -5,8 +5,14 @@
             <p>{{ user.email }}</p>
         </div>
         <div class="container--right">
-            <p>{{ 'User has logged in:' }}</p>
-            <p class="text--semibold">{{ '313 times' }}</p>
+            <span>{{ 'User has logged in: ' }}</span>
+            <span class="text--semibold">{{ getCounterText }}</span>
+            <button 
+                type="button"
+                @click="logout"
+            >
+                {{ 'Logout' }}
+            </button>
         </div>
     </div>
 </template>
@@ -25,6 +31,15 @@ export default{
             this.setUser();
         }
     },
+    computed: {
+        getCounterText() {
+            if (this.user.login_counter > 1) {
+                return `${this.user.login_counter} times.`;
+            }
+
+            return `${this.user.login_counter} time.`;
+        }
+    },
     methods: {
         setUser() {
             this.axios.get(process.env.VUE_APP_BACKEND_URL + 'user/user', {
@@ -36,14 +51,24 @@ export default{
                     this.user = data.data;
                     console.log(this.user);
                 })
-        }
+        },
+        logout() {
+            localStorage.removeItem('jwt');
+            this.$router.push('/');
+        },
     }
 }
 </script>
 <style lang="scss" scoped>
     .user__container {
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-between;
+    }
+
+    @media screen and(min-width: 768px) {
+        .user__container {
+            flex-direction: row;
+        }
     }
 </style>
