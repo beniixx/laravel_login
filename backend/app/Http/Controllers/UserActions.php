@@ -12,18 +12,34 @@ class UserActions extends Controller
         $credentials = $request->only(['email', 'password']);
         $token = auth()->attempt($credentials);
 
-        return $token;
+        $user = User::find(auth()->user()->id);
+        $counter = $user['login_counter'] + 1;
+        $user->update(['login_counter' => $counter]);
+        
+        return ['user' => $token];
     }
 
     public function create(Request $request) {
-        User::create([
-            'name' => $request['name'],
-            'email' => $request['email'],
-            'password' => Hash::make($request['password']),
-        ]);
+        try {
+            User::create([
+                'name' => $request['name'],
+                'email' => $request['email'],
+                'password' => Hash::make($request['password']),
+            ]);
+
+            $login = $this->login($request);
+
+            return $login;
+        } catch(\Illuminate\Database\QueryException $e) {
+            return ['Error' => 'The email address might already be in use. Try to log in or use a different one'];
+        }
     }
 
     public function getUserData(Request $request) {
         return auth()->user();
+    }
+
+    private function addToCounter() {
+
     }
 }
