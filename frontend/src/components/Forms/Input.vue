@@ -13,11 +13,18 @@
             :id="name"
             ref="input"
         />
+        <div 
+            :class="['input__info', {'show': !isValid}]"
+        >
+            <p>{{ getInfoText() }}</p>
+        </div>
     </div>
 </template>
 <script>
+import ValidateForm from '@/mixins/validate-form';
 export default {
     name: 'FormTextInput',
+    mixins: [ValidateForm],
     props: {
         name: {
             type: String,
@@ -36,11 +43,18 @@ export default {
             type: Boolean,
             required: false,
             default: () => { return false }
+        },
+        validation: {
+            type: String,
+            required: false,
         }
     },
     data() {
         return {
-            isValid: false,
+            isValid: true,
+            emailInfoText: 'This is not a valid email address',
+            passwordInfoText: 'The password must be at least six (6) characters',
+            password2InfoText: 'The passwords do not match',
         };
     },
     mounted() {
@@ -49,22 +63,36 @@ export default {
     methods: {
         checkInput(e) {
             const element = e.target;
-            if (element.type === 'text') {
-
-                this.isValid = this.validEmail(element.value);
-
-            } else if (element.type === 'password') {
-                this.isValid = this.validPassword(element.value);
+            this.isValid = this.validateInput(element);
+        },
+        getInfoText() {
+            if (this.validation) {
+                switch(this.validation) {
+                    case 'email':
+                        return this.emailInfoText;
+                    case 'password':
+                        return this.passwordInfoText;
+                    case 'password2':
+                        return this.password2InfoText;
+                    default:
+                        return '';
+                }
             }
         },
-        validEmail: function (email) {
-            const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            
-            return re.test(email);
+        validateInput(input) {
+            if (this.validation) {
+                switch(this.validation) {
+                    case 'email':
+                        return this.validateEmail(input.value);
+                    case 'password':
+                        return this.validatePassword(input.value);
+                    case 'password2':
+                        return this.validatePassword2(input);
+                    default:
+                        return true;
+                }
+            }
         },
-        validPassword(password) {
-            return password.length > 5;
-        }
     }
 }
 </script>
@@ -82,6 +110,15 @@ export default {
             content: '*';
             display: block;
             margin-left: .2em;
+        }
+    }
+
+    .input__info {
+        display: none;
+        color: red;
+
+        &.show {
+            display: block;
         }
     }
 </style>

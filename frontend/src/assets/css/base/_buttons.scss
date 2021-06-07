@@ -10,4 +10,10 @@
     border-radius: 5px;
     font-weight: 600;
     font-size: 18px;
+    cursor: pointer;
+
+    &:disabled {
+        background-color: gray;
+        cursor: not-allowed;
+    }
 }
